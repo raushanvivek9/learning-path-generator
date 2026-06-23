@@ -10,11 +10,22 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
+def _get_streamlit_secrets():
+    try:
+        import streamlit as st
+        return getattr(st, "secrets", {}) or {}
+    except Exception:
+        return {}
+
+
 class Config:
     """Application configuration class"""
     
+    # Try Streamlit secrets first (when running on Streamlit), then env vars
+    _ST_SECRETS = _get_streamlit_secrets()
+
     # API Configuration
-    OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', '')
+    OPENAI_API_KEY = os.getenv('OPENAI_API_KEY') or _ST_SECRETS.get('OPENAI_API_KEY', '')
     
     # Model Configuration
     MODEL_NAME = os.getenv('MODEL_NAME', 'gpt-4o-mini')
@@ -35,7 +46,7 @@ class Config:
         """Validate that required configuration is set"""
         if not Config.OPENAI_API_KEY:
             raise ValueError(
-                "OPENAI_API_KEY not found. Please set it in your .env file"
+                "OPENAI_API_KEY not found. Please set it in your .env file or in Streamlit Secrets"
             )
         return True
 
