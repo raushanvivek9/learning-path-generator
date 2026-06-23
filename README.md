@@ -174,7 +174,7 @@ All configuration is managed through environment variables in `.env`:
 
 ```env
 # OpenAI API Configuration
-OPENAI_API_KEY=sk-proj-...
+OPENAI_API_KEY=your_openai_api_key_here
 
 # Model Configuration
 MODEL_NAME=gpt-4o-mini
