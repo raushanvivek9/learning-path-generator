@@ -60,6 +60,11 @@ streamlit run app.py
 ```
 Then open your browser to `http://localhost:8501`
 
+#### Live Deployment
+The app is also deployed at:
+
+https://learning-path-generator-raushanvivek.streamlit.app/
+
 #### Option 2: Command-line Script
 ```bash
 python example_usage.py
